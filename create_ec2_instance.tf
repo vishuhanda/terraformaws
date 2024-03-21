@@ -1,3 +1,15 @@
+terraform {
+
+  backend "s3" {
+    bucket = "demoterraformstate"
+    key = "key/terraform.tfstate"
+    region = "ap-south-1"
+    profile = "default"
+    shared_credentials_files = ["/Users/vishuhanda/Desktop/Practice Devops/terraformprac/.aws/credentials"]
+  }
+}
+
+
 variable "instance_tag_names" {
     type = list
     description = "Ec2 instances tag names"
@@ -6,6 +18,7 @@ variable "instance_tag_names" {
 
 provider "aws" {
 shared_credentials_files = ["/Users/vishuhanda/Desktop/Practice Devops/terraformprac/.aws/credentials"]
+profile = "default"
 }
 
 
