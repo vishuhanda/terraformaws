@@ -7,15 +7,14 @@ on:
 
 
 env:
-  aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
-  aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-  
+  aws_access_key_id : ${{secrets.AWS_ACCESS_KEY_ID}}
+  aws_secret_access_key : ${{secrets.AWS_SECRET_ACCESS_KEY}}
+  demo : "demo"
 
 jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
-    environment: production
     
     
 
@@ -37,7 +36,11 @@ jobs:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform init
-      run: terraform init
+      run: |
+          echo "aws access key : $aws_access_key_id " 
+          echo "aws secret key : aws_secret_access_key "
+          echo "demo :  $demo "
+          terraform init
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
