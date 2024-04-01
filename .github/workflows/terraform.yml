@@ -9,7 +9,7 @@ on:
 env:
   aws_access_key_id : ${{secrets.AWS_ACCESS_KEY_ID}}
   aws_secret_access_key : ${{secrets.AWS_SECRET_ACCESS_KEY}}
-  demo : "demo"
+  
 
 jobs:
   terraform:
@@ -39,10 +39,9 @@ jobs:
       run: |
         echo "aws access key : ${{env.aws_access_key_id}}" 
         echo "aws secret key : ${{env.aws_secret_access_key}}"
-        echo "demo :  $demo "
-        export aws_access_key_id="${{env.aws_access_key_id}}"
-        export aws_secret_access_key="${{env.aws_secret_access_key}}"
-        terraform init
+        terraform init \ 
+        -backend-config="access_key=${{env.aws_access_key_id}}" \
+        -backend-config="secret_key=${{env.aws_secret_access_key}}"
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
@@ -50,10 +49,19 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform plan -input=false
+      run: |
+        terraform plan \ 
+        -var="aws_secret=${{env.aws_secret_access_key}}" \
+        -var="aws_access_key=${{env.aws_access_key_id}}" 
+
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
       if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
-      run: terraform apply -auto-approve -input=false
+      run: |
+        terraform apply -auto-approve \
+        -var="aws_secret=${{env.aws_secret_access_key}}" \
+        -var="aws_access_key=${{env.aws_access_key_id}}" 
+
+

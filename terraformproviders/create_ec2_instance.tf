@@ -4,7 +4,6 @@ terraform {
     bucket                   = "demoterraformstate"
     key                      = "key/terraform.tfstate"
     region                   = "ap-south-1"
-    profile                  = "default"
   }
 
 }
@@ -17,8 +16,9 @@ variable "instance_tag_names" {
 }
 
 provider "aws" {
-  shared_credentials_files = ["/Users/vishuhanda/Desktop/Practice Devops/terraformprac/.aws/credentials"]
-  profile                  = "default"
+  secret_key = var.aws_secret
+  access_key = var.aws_access_key
+  region = "ap-south-1"
 }
 
 
