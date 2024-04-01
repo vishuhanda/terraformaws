@@ -1,8 +1,8 @@
 variable "aws_secret" {
-    sensitive = true
+  sensitive = true
 }
 
 
 variable "aws_access_key" {
-    sensitive = true
+  sensitive = true
 }

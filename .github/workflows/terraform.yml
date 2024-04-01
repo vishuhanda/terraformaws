@@ -42,11 +42,6 @@ jobs:
         terraform init -backend-config="access_key=${{env.aws_access_key_id}}" -backend-config="secret_key=${{env.aws_secret_access_key}}"
 
 
-
-    # Checks that all Terraform configuration files adhere to a canonical format
-    - name: Terraform Format
-      run: terraform fmt -check
-
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: |

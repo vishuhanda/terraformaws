@@ -1,9 +1,9 @@
 terraform {
 
   backend "s3" {
-    bucket                   = "demoterraformstate"
-    key                      = "key/terraform.tfstate"
-    region                   = "ap-south-1"
+    bucket = "demoterraformstate"
+    key    = "key/terraform.tfstate"
+    region = "ap-south-1"
   }
 
 }
@@ -18,7 +18,7 @@ variable "instance_tag_names" {
 provider "aws" {
   secret_key = var.aws_secret
   access_key = var.aws_access_key
-  region = "ap-south-1"
+  region     = "ap-south-1"
 }
 
 
