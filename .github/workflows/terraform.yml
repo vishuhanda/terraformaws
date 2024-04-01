@@ -8,11 +8,18 @@ on:
 permissions:
   contents: read
 
+env:
+  aws_access_key_id=${{secrets.aws_access_key_id}}
+  aws_secret_access_key=${{secrets.aws_secret_access_key}}
+  
+
 jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
     environment: production
+    
+
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -29,14 +36,6 @@ jobs:
       uses: hashicorp/setup-terraform@v1
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Export Env vars
-      run: | 
-          export aws_access_key_id= ${{ secrets.aws_access_key_id }}
-          export aws_secret_access_key= ${{ secrets.aws_secret_access_key }}
-
-          echo $aws_access_key_id
-          echo $aws_secret_access_key
-          
     - name: Terraform init
       run: terraform init
 
