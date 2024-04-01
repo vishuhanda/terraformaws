@@ -5,7 +5,6 @@ terraform {
     key                      = "key/terraform.tfstate"
     region                   = "ap-south-1"
     profile                  = "default"
-    shared_credentials_files = ["/Users/vishuhanda/Desktop/Practice Devops/terraformprac/.aws/credentials"]
   }
 
 }
