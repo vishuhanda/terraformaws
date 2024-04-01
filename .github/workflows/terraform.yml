@@ -39,9 +39,7 @@ jobs:
       run: |
         echo "aws access key : ${{env.aws_access_key_id}}" 
         echo "aws secret key : ${{env.aws_secret_access_key}}"
-        terraform init \ 
-        -backend-config="access_key=${{env.aws_access_key_id}}" \
-        -backend-config="secret_key=${{env.aws_secret_access_key}}"
+        terraform init -backend-config="access_key=${{env.aws_access_key_id}}" -backend-config="secret_key=${{env.aws_secret_access_key}}"
 
 
 
@@ -52,9 +50,7 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: |
-        terraform plan \ 
-        -var="aws_secret=${{env.aws_secret_access_key}}" \
-        -var="aws_access_key=${{env.aws_access_key_id}}" 
+        terraform plan -var="aws_secret=${{env.aws_secret_access_key}}" -var="aws_access_key=${{env.aws_access_key_id}}" 
 
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
@@ -62,8 +58,6 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
       run: |
-        terraform apply -auto-approve \
-        -var="aws_secret=${{env.aws_secret_access_key}}" \
-        -var="aws_access_key=${{env.aws_access_key_id}}" 
+        terraform apply -auto-approve -var="aws_secret=${{env.aws_secret_access_key}}" -var="aws_access_key=${{env.aws_access_key_id}}" 
 
 
