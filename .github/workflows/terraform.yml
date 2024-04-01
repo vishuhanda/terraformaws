@@ -37,10 +37,12 @@ jobs:
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform init
       run: |
-          echo "aws access key : $aws_access_key_id " 
-          echo "aws secret key : aws_secret_access_key "
-          echo "demo :  $demo "
-          terraform init
+        echo "aws access key : ${{env.aws_access_key_id}}" 
+        echo "aws secret key : ${{env.aws_secret_access_key}}"
+        echo "demo :  $demo "
+        export aws_access_key_id="${{env.aws_access_key_id}}"
+        export aws_secret_access_key="${{env.aws_secret_access_key}}"
+        terraform init
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
